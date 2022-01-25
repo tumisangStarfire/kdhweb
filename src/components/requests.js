@@ -1,5 +1,7 @@
 
-export const apiURL = 'http://localhost:4000/v1/api';
+//export const apiURL = 'http://localhost:4000/v1/api';
+
+export const apiURL = 'http://ec2-34-221-60-164.us-west-2.compute.amazonaws.com/v1/api'
 
 export const post = async(url = String, data= {}) =>{
 

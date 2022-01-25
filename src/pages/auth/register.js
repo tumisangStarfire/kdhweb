@@ -3,7 +3,8 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import { apiURL, post } from "../../components/requests";
 import ErrorLabel from "../../components/ErrorLabel";
-
+import Loader from "../../components/Loader";
+import { withNavigation } from '../../components/navigationHooks';
 
 
 const URL = apiURL + '/register';
@@ -13,7 +14,12 @@ class RegisterPage extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { email: '', password: '', message: '', isRegistered: false, isError: true }
+        this.state = { email: '', password: '',
+        message: '', 
+        isLoading : false,
+        isRegistered: false, 
+        isError: true
+     }
     }
 
 
@@ -28,18 +34,30 @@ class RegisterPage extends React.Component {
         };
         // eslint-disable-next-line no-unreachable
         if (email && password) {
+             this.setState({ isLoading : true });
             post(URL, user).then(res => {
                 console.log(res);
                 if (res.status !== 'success') {
-                    this.setState({ message: res.message });
+                     this.setState({ message : res.message });
+                     this.setState({ isLoading : false });
+
+                }else{
+                    this.setState({ isLoading : false });
+                    this.setState({ message: res.message }); 
+                    setTimeout(()=>{ 
+                         this.props.navigate('/login');
+                    },2000);
 
                 }
-
-                this.setState({ message: '' });
             }).catch(err => {
-                if (err) throw new Error(err);
+                if (err) throw new Error(err); 
+                  this.setState({ isLoading : false });
+                  this.setState({ message :'Something went wrong, please try again' });
                 console.log(err);
             })
+        }else{
+             this.setState({ isLoading : false });
+            this.setState({ message :'Email and Password cannot be empty.' });
         }
     }
 
@@ -48,7 +66,6 @@ class RegisterPage extends React.Component {
             <div className="container-fluid page-body-wrapper full-page-wrapper">
                 <div className="content-wrapper d-flex align-items-center auth">
                     <div className="row flex-grow">
-
                         <div className="col-lg-4 mx-auto">
                             <div className="auth-form-light text-left p-5">
                                 <h4>New Here</h4>
@@ -74,7 +91,9 @@ class RegisterPage extends React.Component {
                                         />
                                     </div>
                                     <div className="mt-3">
-                                        <button type="submit" className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" >Register</button>
+                                        <button type="submit" className="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" >
+                                            { this.state.isLoading && <Loader></Loader> } 
+                                            Register</button>
                                     </div>
                                     <div className="text-center mt-4 font-weight-light"> Have an Account <Link to="/login" className="text-primary">Sign In</Link>
                                     </div>
@@ -89,4 +108,4 @@ class RegisterPage extends React.Component {
     }
 }
 
-export default RegisterPage;
+export default withNavigation(RegisterPage);
