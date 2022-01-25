@@ -4,10 +4,10 @@ import Footer from "../../components/footer";
 import SideBar from "../../components/sidebar";
 import NavBar from "../../components/navbar";
 import { Link } from "react-router-dom";
-import { url,get } from "../../components/requests";
+import { apiURL,get } from "../../components/requests";
 import Loader from "../../components/Loader";
 
-const URL = url+ '/find-user-medication/'; 
+const URL = apiURL+ '/find-user-medication/'; 
 
 class MyMedicationPage extends React.Component{
 

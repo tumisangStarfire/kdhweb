@@ -1,7 +1,7 @@
 
-const apiURL = 'http://localhost:4000/v1/api';
+export const apiURL = 'http://localhost:4000/v1/api';
 
-const post = async(url = String, data= {}) =>{
+export const post = async(url = String, data= {}) =>{
 
       const response  = await fetch(url,{
          method: 'POST', // *GET, POST, PUT, DELETE, etc.
@@ -19,11 +19,9 @@ const post = async(url = String, data= {}) =>{
       return response.json();
 }
 
-const get = async (url : String) => {
+export const  get = async (url : String) => {
    const response  = await fetch(url);
     return response.json();
 }
 
-exports.post = post;
-exports.get = get;
-exports.url = apiURL;
+

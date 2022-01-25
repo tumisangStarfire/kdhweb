@@ -3,10 +3,10 @@ import BreadCrumb from "../../components/breadCrumbs";
 import Footer from "../../components/footer";
 import SideBar from "../../components/sidebar";
 import NavBar from "../../components/navbar";
-import { url,post } from "../../components/requests"; 
+import { apiURL,post } from "../../components/requests"; 
 import { withNavigation } from '../../components/navigationHooks';
 
- const URL = url+'/store-medication';
+ const URL = apiURL+'/store-medication';
 
  class CreateMedicationPage extends React.Component{
 

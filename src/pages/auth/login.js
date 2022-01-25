@@ -1,13 +1,13 @@
 
 import React from "react";
 import { Link } from 'react-router-dom'
-import { url,post } from "../../components/requests";
+import { apiURL,post } from "../../components/requests";
 import ErrorLabel from "../../components/ErrorLabel";
 import Loader from "../../components/Loader";
 import { withNavigation } from '../../components/navigationHooks';
 
 
-const URL = url+ '/login'; 
+const URL = apiURL+ '/login'; 
 
 class LoginPage extends React.Component{
     
